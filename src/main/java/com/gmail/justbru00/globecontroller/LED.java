@@ -24,7 +24,7 @@ public class LED {
 	private boolean NO_FLASHING_EVER = false;
 
 	/**
-	 * This constuctor is used to create a LED object to control a LED connected to
+	 * This constructor is used to create a LED object to control a LED connected to
 	 * the given pin.
 	 * 
 	 * @param _pin

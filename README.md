@@ -6,7 +6,7 @@ It allows remote control with the GlobeControllerClient over a network connectio
 
 This software uses the PI4J project which is licensed under the LGPLv3. A copy of this license can be found at http://pi4j.com/license.html.     
 
-Known issues:
+Known issues:     
 The server will not shutdown unless the clients are disconnected properly with the DISCONNECT command.     
 The relay GPIO pin locations are currently not configurable.      
 The server is vulnerable to a Denial of Service attack as is it will continue to accept clients forever.     

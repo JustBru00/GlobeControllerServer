@@ -1,10 +1,13 @@
 # GlobeControllerServer 
 
-This software was created to control relays with a Raspberry Pi for the Lancaster Academy for the Preforming Arts' production of The Lion, The Witch, and the Wardrobe     
+This software was created to control relays with a Raspberry Pi for the Lancaster Academy for the Performing Arts' production of The Lion, The Witch, and the Wardrobe     
 
 It allows remote control with the GlobeControllerClient over a network connection on port 2018.     
 
 This software uses the PI4J project which is licensed under the LGPLv3. A copy of this license can be found at http://pi4j.com/license.html.     
+
+List of client software:     
+GlobeControllerClient (Official) - https://github.com/JustBru00/GlobeControllerClient     
 
 Known issues:     
 The server will not shutdown unless the clients are disconnected properly with the DISCONNECT command.     

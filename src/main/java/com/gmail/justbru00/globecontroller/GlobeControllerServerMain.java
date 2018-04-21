@@ -14,6 +14,11 @@ public class GlobeControllerServerMain {
 	public static boolean DEBUG = true;
 	public static final Console CONSOLE = new Console();
 	public static boolean RUNNING = true;
+	public static boolean DEMO_RUNNING = false;
+	private static int DEMO_STEP1 = 1;
+	private static int DEMO_STEP2 = 2;
+	private static int DEMO_STEP3 = 3;
+	private static int DEMO_STEP4 = 4;
 
 	public static void main(String[] args) {
 		
@@ -72,6 +77,14 @@ public class GlobeControllerServerMain {
 					BLUE_GLOBES.setState(LEDState.OFF);
 					WHITE_GLOBES.setState(LEDState.OFF);
 					Messager.info("DONE BLACKOUT");
+				} else if (txt.equalsIgnoreCase("DEMOON")) {
+					// DEMO ON
+					DEMO_RUNNING = true;
+					Messager.info("DONE DEMOON");
+				} else if (txt.equalsIgnoreCase("DEMOOFF")) {
+					// DEMO OFF
+					DEMO_RUNNING = false;
+					Messager.info("DONE DEMOOFF");
 				}
 
 				input.nextLine();
@@ -97,8 +110,30 @@ public class GlobeControllerServerMain {
 		}).start();
 		
 		
-		
+		int demoCounter = 1;
 		while (RUNNING) {
+		
+			if (DEMO_RUNNING) {
+				if (demoCounter == DEMO_STEP1) {
+					WHITE_GLOBES.setState(LEDState.OFF);
+					BLUE_GLOBES.setState(LEDState.OFF);
+				} else if (demoCounter == DEMO_STEP2) {
+					WHITE_GLOBES.setState(LEDState.ON);
+					BLUE_GLOBES.setState(LEDState.OFF);
+				} else if (demoCounter == DEMO_STEP3) {
+					WHITE_GLOBES.setState(LEDState.OFF);
+					BLUE_GLOBES.setState(LEDState.ON);
+				} else if (demoCounter == DEMO_STEP4) {
+					WHITE_GLOBES.setState(LEDState.ON);
+					BLUE_GLOBES.setState(LEDState.ON);
+				}
+			
+				if (demoCounter >= 5) {
+					demoCounter = 1;
+				} else {
+					demoCounter++;
+				}
+			}
 			
 			// WAIT FOR SHUTDOWN
 			
@@ -122,7 +157,7 @@ public class GlobeControllerServerMain {
 	
 	public static void globeTest() {
 		Messager.info("Starting GLOBE TEST");
-		// TODO Toggle both lights on and off 3 times waiting a second in between each
+		// Toggle both lights on and off 3 times waiting a second in between each
 		try {
 			BLUE_GLOBES.setState(LEDState.ON);
 			WHITE_GLOBES.setState(LEDState.ON);
@@ -147,7 +182,7 @@ public class GlobeControllerServerMain {
 		}
 		
 		
-		// TODO Toggle BLUE than WHITE three times waiting a second in between each
+		// Toggle BLUE than WHITE three times waiting a second in between each
 		try {
 			BLUE_GLOBES.setState(LEDState.ON);
 			WHITE_GLOBES.setState(LEDState.OFF);

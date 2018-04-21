@@ -70,6 +70,8 @@ public class NetworkServerManager {
         private Socket socket;
         private int clientNumber;
         private boolean stop = false;
+        private BufferedReader in;
+        private PrintWriter out;
 
         public ClientManager(Socket socket, int clientNumber) {
             this.socket = socket;
@@ -79,6 +81,14 @@ public class NetworkServerManager {
         
         public void shutdown() {
         	stop = true;
+        	try {
+				in.close();
+				socket.close();
+			} catch (IOException e) {
+				Messager.warn("Uhh.. Couldn't close input stream.");
+				e.printStackTrace();
+			}
+        	out.close();        	
         }
 
         /**
@@ -92,9 +102,9 @@ public class NetworkServerManager {
                 // Decorate the streams so we can send characters
                 // and not just bytes.  Ensure output is flushed
                 // after every newline.
-                BufferedReader in = new BufferedReader(
+               in = new BufferedReader(
                         new InputStreamReader(socket.getInputStream()));
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+               out = new PrintWriter(socket.getOutputStream(), true);
 
                 // Send a welcome message to the client.
                 out.println("CONNECTION ACCEPTED");
@@ -142,7 +152,15 @@ public class NetworkServerManager {
                     	BLUE_GLOBES.setState(LEDState.OFF);
                     	out.println("DONE BLUEOFFWHITEON");
                     	Messager.info("Client #" + clientNumber + " commanded BLUEOFFWHITEON");
-                    }else if (input.equalsIgnoreCase("PING")) {
+                    } else if (input.equalsIgnoreCase("DEMOON")) {
+                    	GlobeControllerServerMain.DEMO_RUNNING = true;
+                    	out.println("DONE DEMOON");
+                    	Messager.info("Client #" + clientNumber + " commanded DEMOON");
+                    } else if (input.equalsIgnoreCase("DEMOOFF")) {
+                    	GlobeControllerServerMain.DEMO_RUNNING = false;
+                    	out.println("DONE DEMOOFF");
+                    	Messager.info("Client #" + clientNumber + " commanded DEMOOFF");
+                    } else if (input.equalsIgnoreCase("PING")) {
                     	out.println("PONG");
                     	Messager.info("-> RECEIVED PING -- Sent PONG <-");
                     } else {
